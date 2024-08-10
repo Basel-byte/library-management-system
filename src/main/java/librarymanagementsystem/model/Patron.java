@@ -1,0 +1,40 @@
+package librarymanagementsystem.model;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.util.List;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "patron")
+public class Patron {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(name = "mobile_number", nullable = false)
+    private String mobileNumber;
+
+    @OneToMany(mappedBy = "patron", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Borrowing> borrowList;
+
+    public Patron(String name, String address, String mobileNumber) {
+        this.name = name;
+        this.address = address;
+        this.mobileNumber = mobileNumber;
+    }
+}
