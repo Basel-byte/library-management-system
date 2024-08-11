@@ -25,7 +25,6 @@ public class BookService {
 
     public BookDto getBook(Long id) {
         Book book = repository.findById(id).orElseThrow();
-        System.out.println(book);
         return mapper.bookToBookDto(book);
     }
 

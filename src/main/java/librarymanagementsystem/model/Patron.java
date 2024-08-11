@@ -37,9 +37,10 @@ public class Patron {
     @ToString.Exclude
     private List<Borrowing> borrowList;
 
-    public Patron(String name, String address, String mobileNumber) {
+    public Patron(String name, String address, String mobileNumber, String email) {
         this.name = name;
         this.address = address;
         this.mobileNumber = mobileNumber;
+        this.email = email;
     }
 }

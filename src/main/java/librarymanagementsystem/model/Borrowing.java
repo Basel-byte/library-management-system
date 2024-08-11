@@ -30,11 +30,11 @@ public class Borrowing {
     @Column(name = "return_date", nullable = false)
     private Date returnDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patron_id")
     private Patron patron;
 

@@ -13,9 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface BorrowingRepository extends JpaRepository<Borrowing, Long> {
-//    Optional<Borrowing> getByBook_IdAndPatron_Id(Long book_id, Long patron_id);
-    Optional<Void> deleteByBook_IdAndPatron_Id(Long book_id, Long patron_id);
-
+    Optional<Borrowing> getBorrowingByBook_IdAndPatron_Id(Long book_id, Long patron_id);
+    Optional<Void> deleteBorrowingByBook_IdAndPatron_Id(Long book_id, Long patron_id);
 
     @Modifying(clearAutomatically = true)
     @Query("DELETE FROM Borrowing b WHERE b.book.id = :bookId AND b.patron.id =:patronId")

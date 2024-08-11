@@ -2,7 +2,6 @@ package librarymanagementsystem.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import librarymanagementsystem.dto.BorrowingDto;
-import librarymanagementsystem.mapper.BorrowingMapper;
 import librarymanagementsystem.model.Book;
 import librarymanagementsystem.model.Borrowing;
 import librarymanagementsystem.model.Patron;
@@ -19,8 +18,6 @@ public class BorrowingService {
     private final BorrowingRepository borrowingRepository;
     private final BookRepository bookRepository;
     private final PatronRepository patronRepository;
-    private final BorrowingMapper borrowingMapper;
-
 
     @Transactional
     public void borrowBookByPatron(Long bookId, Long patronId, BorrowingDto borrowingDto) {
