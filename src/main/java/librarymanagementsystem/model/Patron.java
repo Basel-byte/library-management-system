@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.ToString;
 
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "patron")
 public class Patron {
@@ -29,7 +30,11 @@ public class Patron {
     @Column(name = "mobile_number", nullable = false)
     private String mobileNumber;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @OneToMany(mappedBy = "patron", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Borrowing> borrowList;
 
     public Patron(String name, String address, String mobileNumber) {

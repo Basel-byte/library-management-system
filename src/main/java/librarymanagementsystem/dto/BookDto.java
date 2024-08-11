@@ -1,11 +1,10 @@
 package librarymanagementsystem.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+import librarymanagementsystem.utils.YearLimit;
 import lombok.*;
-import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.ISBN;
 
-import java.time.Year;
 import java.util.List;
 
 @Getter
@@ -13,13 +12,23 @@ import java.util.List;
 @RequiredArgsConstructor
 @ToString
 public class BookDto {
-    @NotEmpty
+    private final Long id;
+
+    @NotEmpty @Size(max = 250, message = "title must be less than or equals 250 chars")
     private final String title;
-    @NotEmpty
+
+    @NotEmpty @Size(max = 200, message = "author must be less than or equals 250 chars")
     private final String author;
 
-    private final int publicationYear;
+    @NotNull @YearLimit()
+    private final Integer publicationYear;
+
+    @ISBN()
     private final String isbn;
-    private final int numberOfCopies;
+
+    @NotNull
+    @Min(value = 0, message = "numberOfCopies cannot be negative!")
+    private final Integer numberOfCopies;
+
     private List<Long> patronIds;
 }

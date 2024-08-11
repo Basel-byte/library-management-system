@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "borrowing", uniqueConstraints = @UniqueConstraint(name = "book_patron_id", columnNames = {"book_id", "patron_id"}))
 public class Borrowing {

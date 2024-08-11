@@ -6,6 +6,7 @@ import librarymanagementsystem.model.Book;
 import librarymanagementsystem.repository.BookRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
 import java.util.List;
@@ -24,6 +25,7 @@ public class BookService {
 
     public BookDto getBook(Long id) {
         Book book = repository.findById(id).orElseThrow();
+        System.out.println(book);
         return mapper.bookToBookDto(book);
     }
 
@@ -32,14 +34,16 @@ public class BookService {
         repository.save(book);
     }
 
+    @Transactional
     public void updateBook(Long id, BookDto bookDto) {
-        Book book = repository.findById(id).orElseThrow();
+        Book book = repository.findByIdWithLock(id).orElseThrow();
         mapper.updateBookFromBookDto(bookDto, book);
         repository.save(book);
     }
 
+    @Transactional
     public void deleteBook(Long id) {
-        Book book = repository.findById(id).orElseThrow();
+        Book book = repository.findByIdWithLock(id).orElseThrow();
         repository.delete(book);
     }
 }

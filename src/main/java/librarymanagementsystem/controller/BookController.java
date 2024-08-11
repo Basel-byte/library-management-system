@@ -1,5 +1,6 @@
 package librarymanagementsystem.controller;
 
+import jakarta.validation.Valid;
 import librarymanagementsystem.dto.BookDto;
 import librarymanagementsystem.service.BookService;
 import lombok.AllArgsConstructor;
@@ -8,62 +9,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin()
 @Validated
 public class BookController {
     private final BookService service;
 
     @GetMapping("/books")
-    public ResponseEntity<List<BookDto>> getAllBooks() {
-        try {
-            return new ResponseEntity<>(service.getAllBooks(), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> getAllBooks() {
+        return new ResponseEntity<>(service.getAllBooks(), HttpStatus.OK);
     }
 
 
     @GetMapping("/books/{id}")
-    public ResponseEntity<BookDto> getBook(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(service.getBook(id), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> getBook(@PathVariable Long id) {
+        return new ResponseEntity<>(service.getBook(id), HttpStatus.OK);
     }
 
     @PostMapping("/books")
-    public ResponseEntity<Void> addBook(@RequestBody BookDto bookDto) {
-        try {
-            service.addBook(bookDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> addBook(@Valid @RequestBody BookDto bookDto) {
+        service.addBook(bookDto);
+        return new ResponseEntity<>("Book added successfully ✅", HttpStatus.CREATED);
     }
 
     @PutMapping("/books/{id}")
-    public ResponseEntity<Void> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) {
-        try {
-            service.updateBook(id, bookDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> updateBook(@PathVariable Long id, @Valid @RequestBody BookDto bookDto) {
+        service.updateBook(id, bookDto);
+        return new ResponseEntity<>("Book updated successfully ✅", HttpStatus.OK);
     }
 
     @DeleteMapping("/books/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        try {
-            service.deleteBook(id);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> deleteBook(@PathVariable Long id) {
+        service.deleteBook(id);
+        return new ResponseEntity<>("Book deleted successfully ✅", HttpStatus.OK);
     }
 }

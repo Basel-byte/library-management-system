@@ -1,8 +1,7 @@
 package librarymanagementsystem.dto;
 
-import jakarta.persistence.Column;
+import librarymanagementsystem.utils.BorrowingDaysLimit;
 import lombok.*;
-import lombok.experimental.Accessors;
 
 import java.sql.Date;
 
@@ -10,6 +9,12 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @ToString
+@BorrowingDaysLimit.List({
+    @BorrowingDaysLimit(
+            field = "borrowDate",
+            fieldMatch = "returnDate"
+    )
+})
 public class BorrowingDto {
     private final Date borrowDate;
     private final Date returnDate;

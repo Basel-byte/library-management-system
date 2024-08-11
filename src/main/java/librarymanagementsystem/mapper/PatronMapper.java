@@ -13,6 +13,7 @@ import java.util.List;
 public interface PatronMapper {
 //    PatronMapper INSTANCE = Mappers.getMapper(PatronMapper.class);
 
+    @Mapping(target = "id", ignore = true)
     Patron patronDtoToPatron(PatronDto patronDto);
 
     @Mapping(source = "borrowList", target = "bookIds", qualifiedByName = "listOfBorrowingToListOfLong")
@@ -25,5 +26,6 @@ public interface PatronMapper {
 
     List<PatronDto> patronsToPatronDtos(List<Patron> patrons);
 
+    @Mapping(target = "id", ignore = true)
     void updatePatronFromPatronDto(PatronDto patronDto, @MappingTarget Patron patron);
 }

@@ -16,7 +16,7 @@ public interface BookMapper {
 
     BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
-    //    @Mapping(target = "borrowList", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "publicationYear", expression = "java(java.time.Year.of(bookDto.getPublicationYear()))")
     Book bookDtoToBook(BookDto bookDto);
 
@@ -31,6 +31,7 @@ public interface BookMapper {
 
     List<BookDto> booksToBookDtos(List<Book> books);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "publicationYear", expression = "java(java.time.Year.of(bookDto.getPublicationYear()))")
     void updateBookFromBookDto(BookDto bookDto, @MappingTarget Book book);
 }

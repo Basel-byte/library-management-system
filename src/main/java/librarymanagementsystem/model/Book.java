@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Year;
@@ -12,16 +12,17 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 @Entity
 @Table(name = "book")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false)
@@ -30,7 +31,7 @@ public class Book {
     @Column(name = "publication_year", nullable = false)
     private Year publicationYear;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String isbn;
 
     @ColumnDefault("0")
@@ -38,6 +39,7 @@ public class Book {
     private int numberOfCopies;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Borrowing> borrowList;
 
     public Book(String title, String author, Year publicationYear, String isbn, int numberOfCopies) {

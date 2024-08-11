@@ -1,5 +1,6 @@
 package librarymanagementsystem.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import librarymanagementsystem.dto.BorrowingDto;
 import librarymanagementsystem.mapper.BorrowingMapper;
 import librarymanagementsystem.model.Book;
@@ -10,6 +11,7 @@ import librarymanagementsystem.repository.BorrowingRepository;
 import librarymanagementsystem.repository.PatronRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
@@ -20,26 +22,26 @@ public class BorrowingService {
     private final BorrowingMapper borrowingMapper;
 
 
+    @Transactional
     public void borrowBookByPatron(Long bookId, Long patronId, BorrowingDto borrowingDto) {
-        Book book = bookRepository.findById(bookId).orElseThrow();
+        Book book = bookRepository.findByIdWithLock(bookId).orElseThrow(() -> new EntityNotFoundException("Book not found!"));
         if (book.getNumberOfCopies() == 0)
             throw new UnsupportedOperationException("This book is out of stock!");
         book.setNumberOfCopies(book.getNumberOfCopies() - 1);
 
-        Patron patron = patronRepository.findById(patronId).orElseThrow();
+        Patron patron = patronRepository.findById(patronId).orElseThrow(() -> new EntityNotFoundException("Patron not found!"));
 
         Borrowing borrowing = new Borrowing(borrowingDto.getBorrowDate(), borrowingDto.getReturnDate(), book, patron);
-        book.getBorrowList().add(borrowing);
-        patron.getBorrowList().add(borrowing);
 
-        bookRepository.save(book);
-        patronRepository.save(patron);
         borrowingRepository.save(borrowing);
     }
 
-    public BorrowingDto getBorrowingRecord(Long bookId, Long patronId) {
-        Borrowing borrowing = borrowingRepository
-                .getBorrowingByBook_IdAndPatron_Id(bookId, patronId).orElseThrow();
-        return borrowingMapper.borrowingToBorrowingDto(borrowing);
+    @Transactional
+    public void returnBookByPatron(Long bookId, Long patronId) {
+//        borrowingRepository.deleteByBook_IdAndPatron_Id(bookId, patronId)
+//                .orElseThrow(() -> new EntityNotFoundException("Book or patron not found!"));
+        borrowingRepository.deleteByBookIdAndPatronId(bookId, patronId);
+        Book book = bookRepository.findByIdWithLock(bookId).orElseThrow();
+        book.setNumberOfCopies(book.getNumberOfCopies() + 1);
     }
 }

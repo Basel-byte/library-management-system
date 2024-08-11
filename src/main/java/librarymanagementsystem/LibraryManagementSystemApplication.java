@@ -19,16 +19,13 @@ public class LibraryManagementSystemApplication {
         SpringApplication.run(LibraryManagementSystemApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner run(BookRepository repository) {
-        return (args -> insertJavaAdvocates(repository));
-    }
-
-    private void insertJavaAdvocates(BookRepository repository) {
-        Year year = Year.of(2017);
-        int i = year.getValue();
-        System.out.println(i);
-        repository.deleteAll();
-        repository.save(new Book("Cracking the Coding Interview", "Gayle Laakmann McDowell", Year.of(2008), "0984782869",10));
-    }
+//    @Bean
+//    public CommandLineRunner run(BookRepository repository) {
+//        return (args -> insertJavaAdvocates(repository));
+//    }
+//
+//    private void insertJavaAdvocates(BookRepository repository) {
+//        repository.deleteAll();
+//        repository.save(new Book("Cracking the Coding Interview", "Gayle Laakmann McDowell", Year.of(2008), "0984782869",10));
+//    }
 }
