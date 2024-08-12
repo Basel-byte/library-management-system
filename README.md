@@ -50,15 +50,14 @@ I used maven as my build tool for this spring-boot application. I will take abou
 
 ## Implementation
 
-The project structure is divided between many layers or packages as follows:
-![Project Structure](https://github.com/Basel-byte/library-management-system/blob/main/project-structure.jpg)
-		1. Rest Controller
-		2. DTO (Data Transfer Object)
-		3. MapStruct.  ```Mapping from DTO to Model(Entity) and vice verca.```
-		4. Model. ```Represent table in Database```
-		5. Service.
-		6. Repository. (DAO)
-		7. utils package for handling custom exceptions and creating custom annotations for validation.
+The project structure is divided between many layers or packages as follows: ![Project Structure](https://github.com/Basel-byte/library-management-system/blob/main/project-structure.jpg)
+1. Rest Controller
+2. DTO (Data Transfer Object)
+3. MapStruct.  ```Mapping from DTO to Model(Entity) and vice verca.```
+4. Model. ```Represent table in Database```
+5. Service.
+6. Repository. (DAO)
+7. utils package for handling custom exceptions and creating custom annotations for validation.
 
 ## Testing
 
