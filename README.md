@@ -24,7 +24,7 @@ Build a Library Management System API using Spring Boot. The system should allow
 ● Borrowing Record: Tracks the association between books and patrons,  
 including borrowing and return dates.
 
-![Schema Diagram](https://drive.google.com/file/d/1Jhf5JqJ61U4KHqEczrET4rS02t2FZMwd/view?usp=sharing)
+![Schema Diagram](https://github.com/Basel-byte/library-management-system/blob/main/schema-diagram.png)
 
 ## Getting Started
 
@@ -51,7 +51,7 @@ I used maven as my build tool for this spring-boot application. I will take abou
 ## Implementation
 
 The project structure is divided between many layers or packages as follows:
-![Project Structure](https://drive.google.com/file/d/1fLSXys3_Ny-E3gaSonhiJT3ByrydNtPT/view?usp=sharing)
+![Project Structure](https://github.com/Basel-byte/library-management-system/blob/main/project-structure.jpg)
 		1. Rest Controller
 		2. DTO (Data Transfer Object)
 		3. MapStruct.  ```Mapping from DTO to Model(Entity) and vice verca.```
